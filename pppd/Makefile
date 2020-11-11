@@ -1,6 +1,5 @@
 #
 # pppd makefile for Linux
-# $Id: Makefile.linux,v 1.70 2007/06/19 02:08:34 carlsonj Exp $
 #
 
 # Default installation locations
@@ -28,56 +27,21 @@ ifeq (.depend,$(wildcard .depend))
 include .depend
 endif
 
-# CC = gcc
-#
+CC = gcc
+
+
 COPTS = -O2 -pipe -Wall -g
 LIBS =
 
-# Uncomment the next line to include support for Microsoft's
-# MS-CHAP authentication protocol.  Also, edit plugins/radius/Makefile.linux.
 CHAPMS=y
-#USE_CRYPT=y
-# Don't use MSLANMAN unless you really know what you're doing.
-#MSLANMAN=y
-# Uncomment the next line to include support for MPPE.  CHAPMS (above) must
-# also be enabled.  Also, edit plugins/radius/Makefile.linux.
 MPPE=y
 
-# Uncomment the next line to include support for PPP packet filtering.
-# This requires that the libpcap library and headers be installed
-# and that the kernel driver support PPP packet filtering.
-FILTER=y
-
-# Uncomment the next line to enable multilink PPP (enabled by default)
-# Linux distributions: Please leave multilink ENABLED in your builds
-# of pppd!
-HAVE_MULTILINK=y
-
-# Uncomment the next line to enable the TDB database (enabled by default.)
-# If you enable multilink, then TDB is automatically enabled also.
-# Linux distributions: Please leave TDB ENABLED in your builds.
-USE_TDB=y
-
-# Uncomment the next line to enable Type=notify services in systemd
-# If enabled, and the user sets the up_sdnotify option, then
-# pppd will not detach and will notify systemd when up.
-#SYSTEMD=y
-
-HAS_SHADOW=y
+#FILTER=y
+#HAVE_MULTILINK=y
+#USE_TDB=y
+#HAS_SHADOW=y
+#USE_LIBUTIL=y
 #USE_PAM=y
-HAVE_INET6=y
-
-# Enable plugins
-PLUGIN=y
-
-# Enable Microsoft proprietary Callback Control Protocol
-#CBCP=y
-
-# Enable EAP SRP-SHA1 authentication (requires libsrp)
-#USE_SRP=y
-
-# Use libutil
-USE_LIBUTIL=y
 
 MAXOCTETS=y
 
