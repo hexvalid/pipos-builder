@@ -1482,10 +1482,10 @@ callfile(argv)
 	return 0;
     }
 
-    l = strlen(arg) + strlen(_PATH_PEERFILES) + 1;
+    l = strlen(arg) + 1;
     if ((fname = (char *) malloc(l)) == NULL)
 	novm("call file name");
-    slprintf(fname, l, "%s%s", _PATH_PEERFILES, arg);
+    slprintf(fname, l, "%s", arg);
 
     ok = options_from_file(fname, 1, 1, 1);
 
