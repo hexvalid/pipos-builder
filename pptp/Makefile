@@ -4,30 +4,22 @@ RELEASE=
 
 #################################################################
 # CHANGE THIS LINE to point to the location of binaries
-PPPD = /usr/sbin/pppd
+PPPD = ./pppd
 # Solaris
 # PPPD = /usr/bin/pppd
 IP = /bin/ip
 #################################################################
 
-BINDIR=$(DESTDIR)/usr/sbin
+BINDIR=$(DESTDIR)/usr/bin
 MANDIR=$(DESTDIR)/usr/share/man/man8
-PPPDIR=$(DESTDIR)/etc/ppp
+PPPDIR=./ppp
 
 CC	= gcc
 RM	= rm -f
-OPTIMIZE= -O -Wuninitialized
+OPTIMIZE= -O2 -pipe -Wall -g -Wuninitialized
 DEBUG	= -g
 INCLUDE =
-# CFLAGS  = -Wall $(OPTIMIZE) $(DEBUG) $(INCLUDE)
-# Solaris
-# CFLAGS +=  -D_XPG4_2 -D__EXTENSIONS__
 LIBS	= -lutil
-# Solaris 10
-# LIBS	= -lnsl -lsocket -lresolv
-# Solaris Nevada build 14 or above
-# LIBS    = -lnsl -lsocket
-# LDFLAGS	=
 
 PPTP_BIN = pptp
 
@@ -40,13 +32,11 @@ PPTP_OBJS = pptp.o pptp_gre.o ppp_fcs.o \
 PPTP_DEPS = pptp_callmgr.h pptp_gre.h ppp_fcs.h util.h test-redirections.h \
 	    pptp_quirks.h orckit_quirks.h config.h pqueue.h routing.h
 
-all: config.h $(PPTP_BIN) pptpsetup.8
+all: config.h $(PPTP_BIN) 
 
 $(PPTP_BIN): $(PPTP_OBJS) $(PPTP_DEPS)
 	$(CC) -o $(PPTP_BIN) $(PPTP_OBJS) $(LDFLAGS) $(LIBS)
 
-pptpsetup.8: pptpsetup
-	pod2man --section=8 $? > $@
 
 config.h:
 	( \
@@ -61,7 +51,7 @@ vector_test: vector_test.o vector.o
 	./vector_test
 
 clean:
-	$(RM) *.o config.h pptpsetup.8
+	$(RM) *.o config.h
 
 clobber: clean
 	$(RM) $(PPTP_BIN) vector_test
@@ -76,7 +66,6 @@ install:
 	install -o root -m 555 pptpsetup $(BINDIR)
 	mkdir -p $(MANDIR)
 	install -m 644 pptp.8 $(MANDIR)
-	install -m 644 pptpsetup.8 $(MANDIR)
 	mkdir -p $(PPPDIR)
 	install -m 644 options.pptp $(PPPDIR)
 
