@@ -2105,9 +2105,6 @@ check_access(f, filename)
 
     if (fstat(fileno(f), &sbuf) < 0) {
 	warn("cannot stat secret file %s: %m", filename);
-    } else if ((sbuf.st_mode & (S_IRWXG | S_IRWXO)) != 0) {
-	warn("Warning - secret file %s has world and/or group access",
-	     filename);
     }
 }
 
