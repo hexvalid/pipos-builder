@@ -1477,10 +1477,6 @@ callfile(argv)
 		++p;
 	}
     }
-    if (!ok) {
-	option_error("call option value may not contain .. or start with /");
-	return 0;
-    }
 
     l = strlen(arg) + 1;
     if ((fname = (char *) malloc(l)) == NULL)
